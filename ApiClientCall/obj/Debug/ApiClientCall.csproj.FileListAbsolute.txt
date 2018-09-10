@@ -1,0 +1,12 @@
+C:\PERSONALE\ApiClientCall\ApiClientCall\ApiClientCall\bin\Debug\ApiClientCall.exe.config
+C:\PERSONALE\ApiClientCall\ApiClientCall\ApiClientCall\bin\Debug\ApiClientCall.exe
+C:\PERSONALE\ApiClientCall\ApiClientCall\ApiClientCall\bin\Debug\ApiClientCall.pdb
+C:\PERSONALE\ApiClientCall\ApiClientCall\ApiClientCall\obj\Debug\ApiClientCall.csprojResolveAssemblyReference.cache
+C:\PERSONALE\ApiClientCall\ApiClientCall\ApiClientCall\obj\Debug\ApiClientCall.csproj.CoreCompileInputs.cache
+C:\PERSONALE\ApiClientCall\ApiClientCall\ApiClientCall\obj\Debug\ApiClientCall.exe
+C:\PERSONALE\ApiClientCall\ApiClientCall\ApiClientCall\obj\Debug\ApiClientCall.pdb
+C:\PERSONALE\ApiClientCall\ApiClientCall\ApiClientCall\bin\Debug\Newtonsoft.Json.dll
+C:\PERSONALE\ApiClientCall\ApiClientCall\ApiClientCall\bin\Debug\System.Net.Http.Formatting.dll
+C:\PERSONALE\ApiClientCall\ApiClientCall\ApiClientCall\bin\Debug\Newtonsoft.Json.xml
+C:\PERSONALE\ApiClientCall\ApiClientCall\ApiClientCall\bin\Debug\System.Net.Http.Formatting.xml
+C:\PERSONALE\ApiClientCall\ApiClientCall\ApiClientCall\obj\Debug\ApiClientCall.csproj.CopyComplete
