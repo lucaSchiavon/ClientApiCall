@@ -17,7 +17,8 @@ namespace ApiClientCall
         static void Main(string[] args)
         {
             //RunAsync().GetAwaiter().GetResult();
-            RunAsync2().GetAwaiter().GetResult();
+            //RunAsync2().GetAwaiter().GetResult();
+            RunAsync3().GetAwaiter().GetResult();
         }
 
         static HttpClient client = new HttpClient();
@@ -56,6 +57,16 @@ namespace ApiClientCall
                 ObjContainerDTO = await response.Content.ReadAsAsync<ContainerDTO>();
             }
             return ObjContainerDTO;
+        }
+        static async Task<List<Evento>> GetEventAsync3(string path)
+        {
+            List<Evento>LstEvento = null;
+            HttpResponseMessage response = await client.GetAsync(path);
+            if (response.IsSuccessStatusCode)
+            {
+                LstEvento = await response.Content.ReadAsAsync<List<Evento>>();
+            }
+            return LstEvento;
         }
         static async Task<Product> UpdateProductAsync(Product product)
         {
@@ -111,6 +122,59 @@ namespace ApiClientCall
                 //// Delete the product
                 //var statusCode = await DeleteProductAsync(product.Id);
                 //Console.WriteLine($"Deleted (HTTP Status = {(int)statusCode})");
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            Console.ReadLine();
+        }
+
+        static async Task RunAsync3()
+        {
+            // Update port # in the following line.
+            client.BaseAddress = new Uri("http://2.235.241.7:8080/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+
+            try
+            {
+                //// Create a new product
+                //Product product = new Product
+                //{
+                //    Name = "Gizmo",
+                //    Price = 100,
+                //    Category = "Widgets"
+                //};
+
+                //var url = await CreateProductAsync(product);
+                //Console.WriteLine($"Created at {url}");
+                // var url = "api/products";
+                // Get the product
+                ContainerDTO ObjContainerDTO = new ContainerDTO();
+                List<Evento> LstEvento = new List<Evento>();
+                LstEvento = await GetEventAsync3("events?startDate=2018-08-01&endDate=2018-09-10");
+                //ShowProduct(product);
+
+                //// Update the product
+                //Console.WriteLine("Updating price...");
+                //product.Price = 80;
+                //await UpdateProductAsync(product);
+
+                //// Get the updated product
+                //product = await GetProductAsync(url.PathAndQuery);
+                //ShowProduct(product);
+
+                //// Delete the product
+                //var statusCode = await DeleteProductAsync(product.Id);
+                //Console.WriteLine($"Deleted (HTTP Status = {(int)statusCode})");
+                foreach (Evento Evt in LstEvento)
+                {
+                    Console.WriteLine(Evt.description + " " + Evt.amount);
+                }
 
             }
             catch (Exception e)
