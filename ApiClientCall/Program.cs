@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using ApiClientCall;
 using Dto;
+using System.IO;
 
 namespace ApiClientCall
 {
@@ -16,11 +17,91 @@ namespace ApiClientCall
         //https://docs.microsoft.com/it-it/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client
         static void Main(string[] args)
         {
-            //RunAsync().GetAwaiter().GetResult();
-            //RunAsync2().GetAwaiter().GetResult();
-            RunAsync3().GetAwaiter().GetResult();
-        }
+           
+            //RunAsync3().GetAwaiter().GetResult();
 
+
+            ////---------------
+            //string url2 = "http://2.235.241.7:8080/bank-report-entries/2/upload";
+            //string fullPath2 = @"C:\GIT_LUCA\re2017\Re2017Software\Checking3-19.csv";
+            ////FileStream fs = File.Create(fullPath2);
+            //Task<HttpResponseMessage> tskRM = UploadImage(url2, File.ReadAllBytes(fullPath2));
+            //HttpResponseMessage RM = tskRM.Result;
+
+
+            //-----------
+            
+            //     string url3 = "http://2.235.241.7:8080/bank-report-entries/2/upload";
+            //string fullPath3 = @"C:\GIT_LUCA\re2017\Re2017Software\Checking3-19.csv";
+            ////FileStream fs = File.Create(fullPath2);
+            //Task<HttpResponseMessage> tskRM3 = UploadImageB(url3, fullPath3);
+            //HttpResponseMessage RM3 = tskRM3.Result;
+
+            GetRequest("http://2.235.241.7:8080/banks");
+            Console.ReadKey();
+        }
+        //async static void PostRequest(string Url)
+        //{
+        //    HttpContent q = new MultipartFormDataContent();
+        //    q.
+        //    using (HttpClient client = new HttpClient())
+        //    {
+        //        using (HttpResponseMessage response = await client.PostAsync(Url, object)
+        //        {
+        //            using (HttpContent content = response.Content)
+        //            {
+        //                string mycont = await content.ReadAsStringAsync();
+        //            }
+        //        }
+        //    }
+        //}
+        async static void GetRequest(string Url)
+        {
+            
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage response = await client.GetAsync(Url))
+                {
+                    using (HttpContent content = response.Content)
+                    {
+                        string mycont = await content.ReadAsStringAsync();
+                        Console.Write(mycont);
+                    }
+                }
+            }
+        }
+        static async  Task<HttpResponseMessage> UploadImage(string url, byte[] ImageData)
+        {
+            HttpClient client = new HttpClient();
+            var requestContent = new MultipartFormDataContent();
+            HttpContent stringContent = new StringContent("2");
+            //    here you can specify boundary if you need---^
+            //var streamContent = new StreamContent(File.Open(fileName, FileMode.Open));
+            var imageContent = new ByteArrayContent(ImageData);
+            imageContent.Headers.ContentType =
+                MediaTypeHeaderValue.Parse("image/jpeg");
+
+            requestContent.Add(stringContent, "bankId", "2");
+            requestContent.Add(imageContent, "image", "image.jpg");
+
+            return await client.PostAsync(url, requestContent);
+        }
+        static async Task<HttpResponseMessage> UploadImageB(string url, string FullPathImage)
+        {
+            HttpClient client = new HttpClient();
+            var requestContent = new MultipartFormDataContent();
+            HttpContent stringContent = new StringContent("2");
+            //    here you can specify boundary if you need---^
+            var streamContent = new StreamContent(File.Open(FullPathImage, FileMode.Open));
+            //var imageContent = new ByteArrayContent(ImageData);
+            //imageContent.Headers.ContentType =
+            //MediaTypeHeaderValue.Parse("image/jpeg");
+            requestContent.Add(stringContent, "bankId");
+            requestContent.Add(streamContent, "file");
+            //requestContent.Add(imageContent, "image", "image.jpg");
+
+            return await client.PostAsync(url, requestContent);
+        }
         static HttpClient client = new HttpClient();
 
         static void ShowProduct(Product product)
